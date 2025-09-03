@@ -14,7 +14,9 @@ fun menu(){
 
     when (opcao) {
         0 -> println("Adeus amigo!")
-        1 -> println("Cadastrando caixa...")
+        1 -> { cadastrarCaixa()
+            println("Cadastrando caixa...")
+        }
         2 -> println("Editando caixa...")
         3 -> println("Listar caixas...")
         4 -> println("Excluindo caixa...")

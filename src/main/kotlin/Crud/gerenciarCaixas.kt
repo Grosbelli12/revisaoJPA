@@ -5,22 +5,23 @@ import enumerados.Cor
 import enumerados.Marca
 import enumerados.MaterialCaixaDeAgua
 
+val conectar = EntidadeJDBC(
+    url = "jdbc:postgresql://localhost:5432/revisao",
+    usuario = "postgres",
+    senha = "postgres"
+)
 
-fun criarTabelaCaixa(){
-    val conectar = EntidadeJDBC(
-        url = "jdbc:postgresql://localhost:5432/revisao",
-        usuario = "postgres",
-        senha = "postgres"
-    )
+fun criarTabelaCaixa() {
 
     val sql = "CREATE TABLE IF NOT EXISTS CaixaDAgua " +
             " (id serial NOT NULL PRIMARY KEY," +
-            " material varchar(255)," + //Enumeradores serão STRINGS no banco
-            " capacidade float," +
-            " cor varchar(255)," +
-            " peso float," +
+            " material varchar(255)," +
             " preco varchar(255)," +
+            " capacidade float," +
             " altura float," +
+            "marca varchar(255)," +
+            " cor varchar(255)," + //Enumeradores serão STRINGS no banco
+            " peso float," +
             " largura float," +
             " profundidade float" +
             ")"
@@ -34,15 +35,6 @@ fun criarTabelaCaixa(){
 }
 
 fun cadastrarCaixa() {
-    /* val material: MaterialCaixaDeAgua,
-      val capacidade :Int, // Litros
-     val preco: BigDecimal,
-     val cor : Cor,
-     val altura :Double,
-     val marca : String,
-     val peso :Double, //kg
-     val largura :Double,
-     val profundidade :Double*/
 
     println(
         "Escolha o material do qual a caixa é feita\n" +
@@ -82,11 +74,11 @@ fun cadastrarCaixa() {
 
     println(
         "Escolha a marca da caixa\n" +
-                "1 - MARCA1" +
+                "1 - MARCA1\n" +
                 "2 - MARCA2"
     )
     opcao = readln().toInt()
-    val marca: Marca
+    var marca: Marca
 
     when (opcao) {
         1 -> marca = Marca.MARCA1
@@ -102,7 +94,7 @@ fun cadastrarCaixa() {
     println("Escolha a profundidade da caixa")
     val profundidade = readln().toDouble()
 
-    CaixaDAgua(
+    val caixa = CaixaDAgua(
         material = material,
         preco = preco,
         capacidade = capacidade,
@@ -114,7 +106,27 @@ fun cadastrarCaixa() {
         profundidade = profundidade
     )
 
+    val banco = conectar.conectarComBanco()!!.prepareStatement(
+        "INSERT INTO CaixaDAgua (material, preco, " +
+                " capacidade, altura, marca," +
+                " cor, peso, largura, profundidade)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    )
+    banco.setString(1, caixa.material.name)
+    banco.setString(2, caixa.preco.toString())
+    banco.setInt(   3, caixa.capacidade)
+    banco.setDouble(4, caixa.altura)
+    banco.setString(5, caixa.marca.name)
+    banco.setString(6, caixa.cor.name)
+    banco.setDouble(7, caixa.peso)
+    banco.setDouble(8, caixa.largura)
+    banco.setDouble(9, caixa.profundidade)
+
+    banco.executeUpdate() // Isso fará um commit no banco
+
+
 }
+
 
 fun editarCaixa() {
 
