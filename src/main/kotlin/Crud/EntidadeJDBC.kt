@@ -18,7 +18,6 @@ class EntidadeJDBC(
                     this.url, this.usuario, this.senha
 
                 )
-            println("Conectou!")
             return conexao
         } catch (erro : Exception){
             println(erro.printStackTrace())

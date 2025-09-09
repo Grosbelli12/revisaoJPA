@@ -6,6 +6,7 @@ import enumerados.MaterialCaixaDeAgua
 import java.math.BigDecimal
 
 class CaixaDAgua( // Os 2 parenteses são o construtor da classe
+    //val id : Int,
     val material: MaterialCaixaDeAgua,
     val capacidade :Int, // Litros
     val preco: BigDecimal,
