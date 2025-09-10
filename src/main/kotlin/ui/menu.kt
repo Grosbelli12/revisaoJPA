@@ -1,6 +1,7 @@
 package ui
 
 import Crud.cadastrarCaixa
+import Crud.editarCaixa
 import Crud.excluirCaixa
 import Crud.listarCaixas
 import enumerados.MaterialCaixaDeAgua
@@ -22,11 +23,14 @@ fun menu() {
             0 -> println("Adeus amigo!")
             1 ->{
                 println("Cadastrando caixa...")
-                cadastrarCaixa()
+                // Sempre que for cadastrar uma caixa nova p ID será 0
+                cadastrarCaixa(0)
             }
 
-            2 -> println("Editando caixa...")
-
+            2 -> {
+                println("Editando caixa...")
+                editarCaixa()
+            }
             3 ->{
                 println("Listanod caixas...")
                 listarCaixas()
