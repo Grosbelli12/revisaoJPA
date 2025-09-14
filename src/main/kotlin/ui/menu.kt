@@ -6,8 +6,9 @@ import Crud.excluirCaixa
 import Crud.listarCaixas
 import enumerados.MaterialCaixaDeAgua
 
-fun menu() {
+val expressaoRegular = Regex("[0-4]")
 
+fun menu() {
     do {
         println(
             "1 - Cadastrar Caixa D'Água\n" +
@@ -16,33 +17,36 @@ fun menu() {
                     "4 - Excluir Caixa D'Água\n" +
                     "0 - Sair"
         )
-
         val opcao = readln().toInt()
 
-        when (opcao) {
-            0 -> println("Adeus amigo!")
-            1 ->{
-                println("Cadastrando caixa...")
-                // Sempre que for cadastrar uma caixa nova p ID será 0
-                cadastrarCaixa(0)
-            }
+        if (expressaoRegular.matches(opcao.toString())) {
+            when (opcao) {
+                0 -> println("Adeus amigo!")
+                1 -> {
+                    println("Cadastrando caixa...")
+                    // Sempre que for cadastrar uma caixa nova p ID será 0
+                    cadastrarCaixa(0)
+                }
 
-            2 -> {
-                println("Editando caixa...")
-                editarCaixa()
-            }
-            3 ->{
-                println("Listanod caixas...")
-                listarCaixas()
-            }
+                2 -> {
+                    println("Editando caixa...")
+                    editarCaixa()
+                }
 
-            4 -> {
-                println("Excluindo caixa...")
-                excluirCaixa()
-            }
+                3 -> {
+                    println("Listanod caixas...")
+                    listarCaixas()
+                }
 
-            else -> println("Opcão invalida!")
+                4 -> {
+                    println("Excluindo caixa...")
+                    excluirCaixa()
+                }
+            }
+        } else {
+            println("Opcao invalido!")
         }
+
     } while (opcao != 0)
 
 
