@@ -6,6 +6,7 @@ import enumerados.Marca
 import enumerados.MaterialCaixaDeAgua
 import ui.menu
 import java.sql.ResultSet
+import kotlin.concurrent.thread
 
 
 val conectar = EntidadeJDBC(
@@ -155,6 +156,8 @@ fun cadastrarCaixa(id: Int) {
         editar.executeUpdate() // Isso fará um commit no banco
     }
     banco.close()
+    println("Operação realizada com sucesso!")
+    Thread.sleep(1200)
 }
 
 fun buscarEExibirCaixa(id: Int) {
@@ -197,7 +200,8 @@ fun editarCaixa() {
 
     println("Faça suas alterações")
     cadastrarCaixa(idParaEditar)
-
+    println("Operação realizada com sucesso!")
+    Thread.sleep(1200)
 }
 
 fun listarCaixas() {
@@ -221,6 +225,8 @@ fun listarCaixas() {
 
     }
     banco.close()
+    println("Operação realizada com sucesso!")
+    Thread.sleep(1200)
 }
 
 fun excluirCaixa() {
@@ -238,6 +244,7 @@ fun excluirCaixa() {
             deletar.setInt(1, idParaExcluir) // diz qual é o valor do 1° ponto de interrogação
             deletar.executeUpdate() // Manda a instrução ser executada
             println("Excluido com sucesso")
+            Thread.sleep(1200)
         }
 
         else -> {

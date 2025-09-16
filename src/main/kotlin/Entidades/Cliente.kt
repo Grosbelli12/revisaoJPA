@@ -20,7 +20,6 @@ class Cliente(
     cpf = cpf,
     sexo = sexo,
     telefone = telefone) {
-
     }
 
 
